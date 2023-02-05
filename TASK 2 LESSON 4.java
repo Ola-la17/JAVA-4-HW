@@ -1,67 +1,44 @@
-* Реализуйте очередь с помощью LinkedList со следующими методами: enqueue() - помещает элемент в конец очереди, 
-* dequeue() - возвращает первый элемент из очереди и удаляет его, first() - возвращает первый элемент из очереди, не удаляя.
+/*
+ * Реализуйте очередь с помощью LinkedList со следующими методами:
+   enqueue() - помещает элемент в конец очереди, dequeue() - возвращает первый элемент из очереди и удаляет его, 
+   first() - возвращает первый элемент из очереди, не удаляя.
+ */
 
 package HW4;
 
+import java.util.ArrayDeque;
+
 public class task2 {
-    public static Deque<Object> fillList(){
-        Deque<Object> list = new LinkedList<>();
-        list.add("Start");
-        list.add("one");
-        list.add("two");
-        list.add(3);
-        list.add("End");
-        return list;
+
+    public static ArrayDeque<Integer> enqueue(ArrayDeque<Integer> linkedList, int element) {
+        linkedList.addLast(element);
+
+        return linkedList;
     }
-    public static void printList(Deque<Object> list){
-        for(Object el: list){
-            System.out.printf(el + " ");
-        }
-        System.out.println();
+
+    public static int dequeue(ArrayDeque<Integer> linkedList) {
+        int firstElement = linkedList.getFirst();
+        linkedList.pollFirst();
+        System.out.println("Очередь после удаления элемента: " + linkedList);
+
+        return firstElement;
     }
-    public static void enqueue(Deque<Object> list){
-        System.out.println("Введите элемент, который надо добавить: ");
-        Scanner sc1 = new Scanner(System.in);
-        Object element = sc1.nextLine();
-        list.addLast(element);
-        //sc1.close();
+
+    public static int first(ArrayDeque<Integer> linkedList) {
+        return linkedList.getFirst();
     }
-    public static Object dequeue(Deque<Object> list){
-        Object item = list.pollFirst();
-        return item;
-    }
-    public static Object first(Deque<Object> list){
-        return list.peekFirst();
-    }
+
     public static void main(String[] args) {
-        Deque<Object> que = new LinkedList<>();
-        que = fillList();
-        printList(que);
-        System.out.println("Введиет номер операции: 1 - поместить элемент в конец очереди; 2 - вернуть первый элемент из очереди и удалить его; 3 - вернуть первый элемент из очереди, не удаляя; 4 - завершение работы");
-        
-        while(true){
-            Scanner sc = new Scanner(System.in);
-            int cmd = sc.nextInt();
-            if (cmd == 1){
-                enqueue(que);
-                printList(que);
-                continue;
-            }
-            if (cmd == 2) {
-                System.out.println("Первый элемент: " + dequeue(que)); 
-                printList(que);
-                continue;
-            }
-            if (cmd == 3){
-                System.out.println("Первым элементом был: " + first(que)); 
-                continue;
-            }
-            if (cmd == 4) break;
-            else {
-                System.out.println("Для выхода из программы введите 4");
-            }
-            sc.close();
+        ArrayDeque<Integer> linkedList = new ArrayDeque<>();
+        for (int i = 0; i < 10; i++) {
+            linkedList.add((int) (Math.random() * (10 - 1)));
         }
-        
+        int element = 22;
+        System.out.println("Очередь: " + linkedList);
+        System.out.println("Очередь после добавления элемента: " + enqueue(linkedList, element) + "\n"
+                + "Добавляемый элемент " + element);
+        System.out.println("Удаляемый элемент: " + dequeue(linkedList));
+        System.out.println("Первый элемент: " + first(linkedList));
     }
-   
+
+}
